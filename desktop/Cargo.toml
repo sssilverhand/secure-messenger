@@ -1,0 +1,90 @@
+[package]
+name = "privmsg-desktop"
+version = "1.0.0"
+edition = "2021"
+authors = ["PrivMsg Team"]
+description = "Private E2EE Messenger Desktop Client"
+
+[dependencies]
+# GUI
+iced = { version = "0.12", features = ["tokio", "image", "svg", "canvas", "advanced"] }
+
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Networking
+reqwest = { version = "0.11", features = ["json", "multipart", "rustls-tls"], default-features = false }
+tokio-tungstenite = { version = "0.21", features = ["rustls-tls-webpki-roots"] }
+futures = "0.3"
+futures-util = "0.3"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Crypto
+aes-gcm = "0.10"
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+sha2 = "0.10"
+rand = "0.8"
+base64 = "0.21"
+hex = "0.4"
+
+# Data storage
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID
+uuid = { version = "1", features = ["v4", "serde"] }
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# File operations
+dirs = "5"
+image = "0.24"
+
+# Audio
+rodio = "0.17"
+cpal = "0.15"
+
+# WebRTC
+webrtc = "0.9"
+
+# Errors
+anyhow = "1"
+thiserror = "1"
+
+# Concurrency
+parking_lot = "0.12"
+
+# Clipboard
+arboard = "3"
+
+# Notifications (cross-platform)
+notify-rust = "4"
+
+# Open file dialogs
+rfd = "0.14"
+
+# MIME type detection
+mime_guess = "2"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3", features = ["winuser", "shellapi"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# Linux-specific deps if needed
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+codegen-units = 1
+
+[profile.release-small]
+inherits = "release"
+opt-level = "s"

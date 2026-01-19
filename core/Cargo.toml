@@ -1,0 +1,64 @@
+[package]
+name = "privmsg-core"
+version = "1.0.0"
+edition = "2021"
+description = "PrivMsg core library - E2EE messaging"
+
+[lib]
+name = "privmsg_core"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["rt-multi-thread", "sync", "time", "macros"] }
+futures = "0.3"
+
+# Crypto
+x25519-dalek = { version = "2.0", features = ["static_secrets"] }
+aes-gcm = "0.10"
+sha2 = "0.10"
+hmac = "0.12"
+rand = "0.8"
+base64 = "0.21"
+hex = "0.4"
+
+# Network
+reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-features = false }
+tokio-tungstenite = { version = "0.21", features = ["rustls-tls-webpki-roots"] }
+url = "2.5"
+
+# WebRTC
+webrtc = "0.9"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Storage
+rusqlite = { version = "0.30", features = ["bundled"] }
+
+# Utils
+uuid = { version = "1.6", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+log = "0.4"
+parking_lot = "0.12"
+
+# FFI for Android/C
+jni = { version = "0.21", optional = true }
+uniffi = { version = "0.25", optional = true }
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
+android_logger = "0.13"
+
+[features]
+default = []
+android = ["jni"]
+uniffi-bindgen = ["uniffi"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = "z"
+strip = true

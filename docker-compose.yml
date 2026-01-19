@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # PrivMsg Server
+  privmsg-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: privmsg-server
+    restart: unless-stopped
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./data/server:/app/data
+      - ./config/server/config.toml:/app/config.toml:ro
+    environment:
+      - RUST_LOG=privmsg_server=info
+    depends_on:
+      - coturn
+    networks:
+      - privmsg-network
+
+  # TURN/STUN Server (coturn)
+  # Required for WebRTC calls to work through NAT/firewalls
+  coturn:
+    image: coturn/coturn:latest
+    container_name: privmsg-turn
+    restart: unless-stopped
+    ports:
+      - "3478:3478/tcp"
+      - "3478:3478/udp"
+      - "5349:5349/tcp"
+      - "5349:5349/udp"
+      - "49152-49200:49152-49200/udp"
+    volumes:
+      - ./config/coturn/turnserver.conf:/etc/coturn/turnserver.conf:ro
+    command: -c /etc/coturn/turnserver.conf
+    networks:
+      - privmsg-network
+
+networks:
+  privmsg-network:
+    driver: bridge
+
+volumes:
+  server-data:

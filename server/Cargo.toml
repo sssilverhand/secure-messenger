@@ -1,0 +1,56 @@
+[package]
+name = "privmsg-server"
+version = "1.0.0"
+edition = "2021"
+authors = ["PrivMsg Team"]
+description = "Minimal relay server for PrivMsg messenger"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# Web framework
+axum = { version = "0.7", features = ["ws", "multipart"] }
+axum-extra = { version = "0.9", features = ["typed-header"] }
+tower = { version = "0.4", features = ["full"] }
+tower-http = { version = "0.5", features = ["cors", "fs", "trace"] }
+
+# WebSocket
+tokio-tungstenite = "0.21"
+futures-util = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Database
+sqlx = { version = "0.7", features = ["runtime-tokio", "sqlite", "chrono"] }
+
+# Crypto
+ring = "0.17"
+base64 = "0.21"
+hex = "0.4"
+rand = "0.8"
+
+# TLS
+rustls = "0.22"
+tokio-rustls = "0.25"
+rustls-pemfile = "2.0"
+
+# Utilities
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+clap = { version = "4.4", features = ["derive"] }
+thiserror = "1.0"
+anyhow = "1.0"
+dashmap = "5.5"
+bytes = "1.5"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

@@ -1,0 +1,42 @@
+# Rust
+target/
+Cargo.lock
+*.rs.bk
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+*.apk
+*.aab
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data
+data/
+*.db
+*.db-journal
+*.db-wal
+
+# Secrets (never commit!)
+*.pem
+*.key
+*.crt
+*.p12
+
+# Logs
+*.log
+logs/
+
+# Temp
+*.tmp
+*.temp
+.cache/
