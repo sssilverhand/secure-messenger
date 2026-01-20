@@ -46,7 +46,7 @@ if [ ! -f ../dist/server/config.toml ]; then
     cat > ../dist/server/config.toml << 'EOF'
 [server]
 host = "0.0.0.0"
-port = 8443
+port = 9443
 
 [storage]
 database_path = "./data/privmsg.db"

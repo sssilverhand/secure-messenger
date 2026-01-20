@@ -38,7 +38,7 @@ impl Default for AppConfig {
         Self {
             server: ServerConfig {
                 host: String::new(),
-                port: 8443,
+                port: 9443,
                 use_tls: true,
             },
             ui: UiConfig {

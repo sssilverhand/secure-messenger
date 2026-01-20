@@ -56,7 +56,7 @@ if not exist "%BUILD_DIR%\server\config.toml" (
     (
         echo [server]
         echo host = "0.0.0.0"
-        echo port = 8443
+        echo port = 9443
         echo.
         echo [storage]
         echo database_path = "./data/privmsg.db"

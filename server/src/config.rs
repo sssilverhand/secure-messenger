@@ -79,7 +79,7 @@ impl Default for Config {
         Self {
             server: ServerConfig {
                 host: "0.0.0.0".to_string(),
-                port: 8443,
+                port: 9443,
             },
             storage: StorageConfig {
                 database_path: "./data/privmsg.db".to_string(),

@@ -43,14 +43,14 @@ RUN mkdir -p /app/data/files && chown -R privmsg:privmsg /app
 USER privmsg
 
 # Expose port
-EXPOSE 8443
+EXPOSE 9443
 
 # Volume for data persistence
 VOLUME ["/app/data"]
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8443/health || exit 1
+    CMD curl -f http://localhost:9443/health || exit 1
 
 # Run server
 ENTRYPOINT ["/app/privmsg-server"]

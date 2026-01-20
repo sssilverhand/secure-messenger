@@ -110,7 +110,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit) {
             value = serverAddress,
             onValueChange = { serverAddress = it },
             label = { Text("Server Address") },
-            placeholder = { Text("example.com:8443") },
+            placeholder = { Text("example.com:9443") },
             leadingIcon = {
                 Icon(Icons.Filled.Dns, contentDescription = null)
             },

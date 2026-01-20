@@ -20,12 +20,12 @@ cleanup_interval_minutes = 60
 enabled = true
 urls = ["turn:113.30.152.152:3478", "turns:113.30.152.152:5349"]
 username = "privmsg"
-credential = "change-this-secret"    # CHANGE THIS!
+credential = "7a24ko/KRi98/NWSnpYGOWzy7fIJNqgpU5JyGJDv9o8="
 credential_type = "password"
 ttl_seconds = 86400                  # 24 hours
 
 [admin]
-master_key = "CHANGE-THIS-KEY"       # CHANGE THIS!
+master_key = "b07Cq7R4S31GXfeK65TEhObTxySLji1RSshMkWnWiJ0="
 
 [limits]
 max_file_size_mb = 100

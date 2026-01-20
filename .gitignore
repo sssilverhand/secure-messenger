@@ -31,6 +31,12 @@ data/
 *.key
 *.crt
 *.p12
+MY_CREDENTIALS.txt
+CREDENTIALS.txt
+
+# Build output
+build/
+dist/
 
 # Logs
 *.log

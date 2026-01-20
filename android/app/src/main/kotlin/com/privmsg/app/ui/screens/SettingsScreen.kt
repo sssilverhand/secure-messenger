@@ -31,7 +31,7 @@ fun SettingsScreen(
 
     // Mock user data
     val userId = "moriarty"
-    val serverAddress = "example.com:8443"
+    val serverAddress = "example.com:9443"
 
     Scaffold(
         topBar = {

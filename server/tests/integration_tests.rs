@@ -3,7 +3,7 @@
 use reqwest::Client;
 use serde_json::json;
 
-const BASE_URL: &str = "http://localhost:8443";
+const BASE_URL: &str = "http://localhost:9443";
 
 #[tokio::test]
 async fn test_health_check() {

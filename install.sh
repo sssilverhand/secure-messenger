@@ -89,7 +89,7 @@ if [ -d "privmsg" ]; then
     cd privmsg
     git pull || true
 else
-    git clone https://github.com/your-repo/privmsg.git || {
+    git clone https://github.com/sssilverhand/secure-messenger/privmsg.git || {
         echo -e "${YELLOW}Git clone не удался, создаём структуру вручную...${NC}"
         mkdir -p privmsg
         cd privmsg
@@ -111,7 +111,7 @@ echo -e "${BLUE}[5/6]${NC} Создание конфигурации..."
 cat > config/server/config.toml << EOF
 [server]
 host = "0.0.0.0"
-port = 8443
+port = 9443
 
 [storage]
 database_path = "./data/privmsg.db"
@@ -162,11 +162,11 @@ version: '3.8'
 
 services:
   privmsg-server:
-    image: ghcr.io/your-repo/privmsg-server:latest
+    image: ghcr.io/sssilverhand/secure-messenger/privmsg-server:latest
     container_name: privmsg-server
     restart: unless-stopped
     ports:
-      - "8443:8443"
+      - "9443:9443"
     volumes:
       - ./data/server:/app/data
       - ./config/server/config.toml:/app/config.toml:ro
@@ -193,7 +193,7 @@ fi
 # Настройка файрвола
 echo -e "${BLUE}[6/6]${NC} Настройка файрвола..."
 ufw allow 22/tcp      # SSH
-ufw allow 8443/tcp    # PrivMsg API
+ufw allow 9443/tcp    # PrivMsg API
 ufw allow 3478/tcp    # TURN TCP
 ufw allow 3478/udp    # TURN UDP
 ufw allow 5349/tcp    # TURN TLS
@@ -212,7 +212,7 @@ echo "Ожидание запуска сервера..."
 sleep 5
 
 # Проверка
-if curl -s http://localhost:8443/health | grep -q "ok"; then
+if curl -s http://localhost:9443/health | grep -q "ok"; then
     echo -e "${GREEN}[✓]${NC} Сервер успешно запущен!"
 else
     echo -e "${YELLOW}[!]${NC} Сервер запускается... Проверьте через минуту."
@@ -227,7 +227,7 @@ echo ""
 echo -e "${YELLOW}=== ВАЖНАЯ ИНФОРМАЦИЯ (СОХРАНИТЕ!) ===${NC}"
 echo ""
 echo -e "Внешний IP сервера: ${GREEN}$EXTERNAL_IP${NC}"
-echo -e "Порт API: ${GREEN}8443${NC}"
+echo -e "Порт API: ${GREEN}9443${NC}"
 echo ""
 echo -e "Admin Key: ${GREEN}$ADMIN_KEY${NC}"
 echo -e "TURN Password: ${GREEN}$TURN_PASSWORD${NC}"
@@ -238,7 +238,7 @@ echo "1. Создайте первого пользователя:"
 echo -e "   ${BLUE}docker exec -it privmsg-server ./privmsg-server generate-key --admin-key \"$ADMIN_KEY\"${NC}"
 echo ""
 echo "2. Для подключения клиентов используйте:"
-echo -e "   Server: ${GREEN}$EXTERNAL_IP:8443${NC}"
+echo -e "   Server: ${GREEN}$EXTERNAL_IP:9443${NC}"
 echo ""
 echo "3. Проверка статуса:"
 echo -e "   ${BLUE}docker-compose ps${NC}"
@@ -258,7 +258,7 @@ PrivMsg Server Credentials
 Generated: $(date)
 
 Server IP: $EXTERNAL_IP
-Server Port: 8443
+Server Port: 9443
 
 Admin Key: $ADMIN_KEY
 TURN Password: $TURN_PASSWORD
