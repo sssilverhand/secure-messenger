@@ -2,7 +2,7 @@
 
 [server]
 host = "0.0.0.0"
-port = 8443
+port = 9443
 
 [storage]
 database_path = "/app/data/privmsg.db"
@@ -18,7 +18,7 @@ cleanup_interval_minutes = 60
 
 [turn]
 enabled = true
-urls = ["turn:localhost:3478", "turns:localhost:5349"]
+urls = ["turn:113.30.152.152:3478", "turns:113.30.152.152:5349"]
 username = "privmsg"
 credential = "change-this-secret"    # CHANGE THIS!
 credential_type = "password"

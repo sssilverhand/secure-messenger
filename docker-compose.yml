@@ -9,7 +9,7 @@ services:
     container_name: privmsg-server
     restart: unless-stopped
     ports:
-      - "8443:8443"
+      - "9443:9443"
     volumes:
       - ./data/server:/app/data
       - ./config/server/config.toml:/app/config.toml:ro

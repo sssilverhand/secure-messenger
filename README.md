@@ -67,7 +67,7 @@ Edit `config/server/config.toml`:
 ```toml
 [server]
 host = "0.0.0.0"
-port = 8443
+port = 9443
 
 [admin]
 master_key = "YOUR_SECURE_ADMIN_KEY"  # Generate a secure key!
@@ -92,7 +92,7 @@ docker-compose up -d
 ```
 
 This starts:
-- PrivMsg Server on port 8443
+- PrivMsg Server on port 9443
 - TURN Server on ports 3478/5349
 
 ### 4. Create User Access Keys
@@ -113,7 +113,7 @@ Share the User ID and Access Key securely with your users.
 Download clients from [Releases](../../releases) or build from source.
 
 Configure the client with:
-- **Server URL**: `https://your-domain.com:8443` or `http://your-ip:8443`
+- **Server URL**: `https://your-domain.com:9443` or `http://your-ip:9443`
 - **User ID**: From step 4
 - **Access Key**: From step 4
 
@@ -129,7 +129,7 @@ Configure the client with:
 | CPU | 1 vCPU | 2 vCPU |
 | Storage | 5 GB SSD | 20 GB SSD |
 | OS | Debian 12+ / Ubuntu 22.04+ | Ubuntu 24.04 |
-| Ports | 8443, 3478, 5349, 49152-49200 | Same |
+| Ports | 9443, 3478, 5349, 49152-49200 | Same |
 
 ### Step-by-Step VPS Deployment
 
@@ -186,7 +186,7 @@ realm=your-domain.com
 
 ```bash
 # UFW (Ubuntu)
-sudo ufw allow 8443/tcp    # API Server
+sudo ufw allow 9443/tcp    # API Server
 sudo ufw allow 3478/tcp    # TURN TCP
 sudo ufw allow 3478/udp    # TURN UDP
 sudo ufw allow 5349/tcp    # TURNS TCP
@@ -205,7 +205,7 @@ docker compose up -d
 
 ```bash
 # Check health
-curl http://localhost:8443/health
+curl http://localhost:9443/health
 
 # Check logs
 docker compose logs -f
@@ -229,7 +229,7 @@ server {
     server_name your-domain.com;
 
     location / {
-        proxy_pass http://127.0.0.1:8443;
+        proxy_pass http://127.0.0.1:9443;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -471,7 +471,7 @@ sudo ufw status
 
 ### Client can't connect
 - Verify server URL is correct
-- Check if ports are open: `nc -zv your-server.com 8443`
+- Check if ports are open: `nc -zv your-server.com 9443`
 - For HTTPS, ensure certificate is valid
 
 ---

@@ -89,7 +89,7 @@
 
 | Порт | Протокол | Назначение |
 |------|----------|------------|
-| 8443 | TCP | API сервер |
+| 9443 | TCP | API сервер |
 | 3478 | TCP/UDP | TURN (обычный) |
 | 5349 | TCP/UDP | TURNS (TLS) |
 | 49152-49200 | UDP | TURN media relay |
@@ -179,7 +179,7 @@ Docker скачает необходимые образы и запустит к
 docker compose ps
 
 # Проверка health endpoint
-curl http://localhost:8443/health
+curl http://localhost:9443/health
 
 # Ожидаемый ответ:
 # {"status":"ok","timestamp":...,"version":"1.0.0"}
@@ -189,7 +189,7 @@ curl http://localhost:8443/health
 
 ```bash
 # Создание пользователя через API
-curl -X POST http://localhost:8443/api/v1/admin/users \
+curl -X POST http://localhost:9443/api/v1/admin/users \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY"}'
 
@@ -287,7 +287,7 @@ docker run hello-world
 sudo ufw allow 22/tcp
 
 # Разрешение портов PrivMsg
-sudo ufw allow 8443/tcp    # API сервер
+sudo ufw allow 9443/tcp    # API сервер
 sudo ufw allow 3478/tcp    # TURN TCP
 sudo ufw allow 3478/udp    # TURN UDP
 sudo ufw allow 5349/tcp    # TURNS TCP
@@ -350,7 +350,7 @@ nano config/server/config.toml
 ```toml
 [server]
 host = "0.0.0.0"
-port = 8443
+port = 9443
 
 [storage]
 database_path = "/app/data/privmsg.db"
@@ -433,17 +433,17 @@ docker compose logs -f
 
 ```bash
 # Проверка health endpoint
-curl http://localhost:8443/health
+curl http://localhost:9443/health
 
 # Проверка извне (замените на ваш IP)
-curl http://ваш_ip:8443/health
+curl http://ваш_ip:9443/health
 ```
 
 ### Этап 7: Создание пользователей
 
 ```bash
 # Создание пользователя
-curl -X POST http://localhost:8443/api/v1/admin/users \
+curl -X POST http://localhost:9443/api/v1/admin/users \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY"}'
 ```
@@ -486,7 +486,7 @@ server {
     server_name ваш_домен.com;
 
     location / {
-        proxy_pass http://127.0.0.1:8443;
+        proxy_pass http://127.0.0.1:9443;
         proxy_http_version 1.1;
 
         # WebSocket support
@@ -585,7 +585,7 @@ services:
 
 ```bash
 # Через API
-curl -X POST http://localhost:8443/api/v1/admin/users \
+curl -X POST http://localhost:9443/api/v1/admin/users \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY"}'
 
@@ -596,7 +596,7 @@ docker exec -it privmsg-server ./privmsg-server generate-key --admin-key ВАШ_
 ### Создание пользователя с определённым ID
 
 ```bash
-curl -X POST http://localhost:8443/api/v1/admin/users \
+curl -X POST http://localhost:9443/api/v1/admin/users \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY", "user_id":"custom_user_id"}'
 ```
@@ -614,7 +614,7 @@ docker exec -it privmsg-server ./privmsg-server list-keys --admin-key ВАШ_ADM
 docker exec -it privmsg-server ./privmsg-server revoke-key --admin-key ВАШ_ADMIN_KEY --user-id USER_ID
 
 # Или полное удаление через API
-curl -X DELETE "http://localhost:8443/api/v1/admin/users/USER_ID" \
+curl -X DELETE "http://localhost:9443/api/v1/admin/users/USER_ID" \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY"}'
 ```
@@ -622,7 +622,7 @@ curl -X DELETE "http://localhost:8443/api/v1/admin/users/USER_ID" \
 ### Статистика сервера
 
 ```bash
-curl -X GET http://localhost:8443/api/v1/admin/stats \
+curl -X GET http://localhost:9443/api/v1/admin/stats \
   -H "Content-Type: application/json" \
   -d '{"admin_key":"ВАШ_ADMIN_KEY"}'
 ```
@@ -729,7 +729,7 @@ gradlew.bat assembleRelease
 1. Скачайте клиент из [Releases](../../releases) или соберите из исходников
 2. Запустите приложение
 3. На экране входа введите:
-   - **Server URL**: `https://ваш_домен.com` или `http://ваш_ip:8443`
+   - **Server URL**: `https://ваш_домен.com` или `http://ваш_ip:9443`
    - **User ID**: Полученный от администратора
    - **Access Key**: Полученный от администратора
 4. Нажмите "Connect"
@@ -739,7 +739,7 @@ gradlew.bat assembleRelease
 1. Скачайте APK из [Releases](../../releases) или соберите из исходников
 2. Установите APK (может потребоваться разрешить установку из неизвестных источников)
 3. На экране входа введите:
-   - **Server URL**: `https://ваш_домен.com` или `http://ваш_ip:8443`
+   - **Server URL**: `https://ваш_домен.com` или `http://ваш_ip:9443`
    - **User ID**: Полученный от администратора
    - **Access Key**: Полученный от администратора
 4. Нажмите "Войти"
@@ -830,7 +830,7 @@ Authorization: Bearer <token>
 #### Подключение
 
 ```
-ws://сервер:8443/ws
+ws://сервер:9443/ws
 wss://сервер/ws  (для HTTPS)
 ```
 
@@ -882,7 +882,7 @@ docker compose logs privmsg-server
 
 # Частые причины:
 # 1. Порт занят
-netstat -tlnp | grep 8443
+netstat -tlnp | grep 9443
 
 # 2. Ошибка в конфигурации
 cat config/server/config.toml | grep -v "^#" | grep -v "^$"
@@ -912,7 +912,7 @@ grep -i secret config/coturn/turnserver.conf
 ### Клиент не подключается
 
 1. **Проверьте URL сервера** — должен включать протокол (http:// или https://)
-2. **Проверьте порты** — `nc -zv сервер 8443`
+2. **Проверьте порты** — `nc -zv сервер 9443`
 3. **Проверьте сертификат** — для HTTPS убедитесь, что сертификат валидный
 4. **Проверьте user_id и access_key** — они чувствительны к регистру
 
