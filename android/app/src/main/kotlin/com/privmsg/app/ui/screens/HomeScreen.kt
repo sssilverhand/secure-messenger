@@ -126,7 +126,7 @@ fun HomeScreen(
                         conversation = conversation,
                         onClick = { onChatClick(conversation.id) }
                     )
-                    HorizontalDivider(
+                    Divider(
                         modifier = Modifier.padding(start = 76.dp),
                         color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
                     )

@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.privmsg.app.MainActivity
-import com.privmsg.app.R
 import com.privmsg.app.data.webrtc.CallManager
 import com.privmsg.app.data.webrtc.CallState
 import kotlinx.coroutines.*

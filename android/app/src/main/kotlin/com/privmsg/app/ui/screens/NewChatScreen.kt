@@ -5,7 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -66,7 +66,7 @@ fun NewChatScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 title = { Text("New Chat") },
@@ -247,14 +247,13 @@ fun NewChatScreen(
                             )
                         }
 
-                        FilledIconButton(
-                            onClick = { onStartChat(userFound!!) },
-                            containerColor = PrimaryBlue
+                        IconButton(
+                            onClick = { onStartChat(userFound!!) }
                         ) {
                             Icon(
                                 Icons.Filled.Chat,
                                 contentDescription = "Start Chat",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = PrimaryBlue
                             )
                         }
                     }

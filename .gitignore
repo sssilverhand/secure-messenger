@@ -20,8 +20,8 @@ android/local.properties
 .DS_Store
 Thumbs.db
 
-# Data
-data/
+# Data (databases, not source code)
+/data/
 *.db
 *.db-journal
 *.db-wal

@@ -7,8 +7,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.Logout
+
+
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -38,7 +38,7 @@ fun SettingsScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
                 title = { Text("Settings") },
@@ -187,7 +187,7 @@ fun SettingsScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Icon(
-                        Icons.AutoMirrored.Filled.Logout,
+                        Icons.Filled.ExitToApp,
                         contentDescription = null,
                         tint = Red
                     )
@@ -209,7 +209,7 @@ fun SettingsScreen(
         AlertDialog(
             onDismissRequest = { showLogoutDialog = false },
             icon = {
-                Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, tint = Red)
+                Icon(Icons.Filled.ExitToApp, contentDescription = null, tint = Red)
             },
             title = { Text("Sign Out") },
             text = {

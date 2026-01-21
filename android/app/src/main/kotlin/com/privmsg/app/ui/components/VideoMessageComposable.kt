@@ -1,6 +1,7 @@
 package com.privmsg.app.ui.components
 
 import android.view.ViewGroup
+import androidx.annotation.OptIn
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,12 +21,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 
 /**
  * Circular video message bubble (like Telegram video messages)
  */
+@OptIn(UnstableApi::class)
 @Composable
 fun VideoMessageBubble(
     videoUrl: String,
@@ -138,11 +141,10 @@ fun VideoMessageBubble(
         // Progress ring
         if (isPlaying) {
             CircularProgressIndicator(
-                progress = { (currentPosition.toFloat() / durationMs).coerceIn(0f, 1f) },
+                progress = (currentPosition.toFloat() / durationMs).coerceIn(0f, 1f),
                 modifier = Modifier.fillMaxSize(),
                 strokeWidth = 3.dp,
-                color = Color.White.copy(alpha = 0.8f),
-                trackColor = Color.Transparent
+                color = Color.White.copy(alpha = 0.8f)
             )
         }
     }
@@ -195,13 +197,12 @@ fun VideoRecordButton(
 
                 // Progress ring
                 CircularProgressIndicator(
-                    progress = { progress },
+                    progress = progress,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(borderWidth.dp),
                     strokeWidth = 4.dp,
-                    color = Color.Red,
-                    trackColor = Color.Red.copy(alpha = 0.3f)
+                    color = Color.Red
                 )
 
                 // Duration

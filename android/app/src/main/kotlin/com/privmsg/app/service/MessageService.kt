@@ -12,7 +12,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.privmsg.app.MainActivity
-import com.privmsg.app.data.network.WebSocketManager
+import com.privmsg.app.service.WebSocketManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -114,9 +114,9 @@ class MessageService : Service() {
                 // Observe connection state
                 webSocketManager?.connectionState?.collect { state ->
                     _connectionState.value = when (state) {
-                        WebSocketManager.ConnectionState.CONNECTED -> ConnectionState.CONNECTED
-                        WebSocketManager.ConnectionState.CONNECTING -> ConnectionState.CONNECTING
-                        WebSocketManager.ConnectionState.DISCONNECTED -> ConnectionState.DISCONNECTED
+                        is WebSocketManager.ConnectionState.Connected -> ConnectionState.CONNECTED
+                        is WebSocketManager.ConnectionState.Connecting -> ConnectionState.CONNECTING
+                        is WebSocketManager.ConnectionState.Disconnected -> ConnectionState.DISCONNECTED
                     }
                     updateNotification()
                 }
